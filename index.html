@@ -15,19 +15,41 @@
       <input  class="conteiner__body__input" type="text" id="digitos">
       <button class="conteiner__body__button" type="button" name="button">Enter</button>
     </div>
-      </div>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal__content">
-        <div class="modal__content__header">
-          <h1>YOU WINN</h1>
-          <button class="modal__content__header__button" type="button" name="button">jugar de nuevo</button>
-        </div>
-        </div>
+    <div class="conteiner__tablet">
+      <script id="picasFijas-template" type="text/x-handlebars-template">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Picas</th>
+              <th>Fijas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each countries}}
+            <tr>
+              <td>{{this.userNumber}}</td>
+              <td>{{this.picas}}</td>
+                <td>{{this.fijas}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </script>
     </div>
+  </div>
 
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal__content">
+      <div class="modal__content__header">
+        <h1>YOU WINN</h1>
+        <button class="modal__content__header__button" type="button" name="button">jugar de nuevo</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

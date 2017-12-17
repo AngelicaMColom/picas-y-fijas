@@ -26,7 +26,7 @@ body {
 
 }
 
-.conteiner{
+.container{
   position: relative;
   display: flex;
   flex-direction: column;
@@ -34,36 +34,36 @@ body {
   justify-content: center;
 }
 
-.conteiner__title__h1{
+.container__title__h1{
   font-size: 60px;
   text-shadow: 1px 1px 2px #8C8C8C;
 }
 
-.conteiner__title__suptitle{
+.container__title__suptitle{
   font-size: 20px;
 }
 
-.conteiner__title__suptitle_active span{
+.container__title__suptitle_active span{
     font-size: 22px;
     color: #771414;
     font-weight: bold;
 }
 
-.conteiner__body{
+.container__body{
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.conteiner__body__input{
+.container__body__input{
   margin: 10px 10px;
   padding: 10px;
   border-radius: 5px;
   outline-width: 0;
 }
 
-.conteiner__body__button{
+.container__body__button{
     position: relative;
     padding: 10px;
     border-radius: 5px;
@@ -75,9 +75,21 @@ body {
     transition: background 1s ease-in;
 }
 
-.conteiner__body__button:hover{
+.container__body__button:hover{
   background-color: #ffc107;
   transition: background 1s ease-out;
+}
+.container__body__tab{
+  margin-top: 40px;
+}
+.container__body__tablet{
+  display: none;
+  font-size: 30px;
+
+}
+
+.container__body__tablet th {
+  padding-right: 20px;
 }
 
 /*modal css*/

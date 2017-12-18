@@ -160,7 +160,7 @@ function addheight() {
   if (OBJGEN.counter > 3) {
     const suffix =  'px';
     let pxNumber = OBJGEN.baseHige += 50;
-         document.documentElement.style.setProperty(`--baseHige`, pxNumber + suffix);
+         document.documentElement.style.setProperty(`--baseHeight`, pxNumber + suffix);
 
   }
 }

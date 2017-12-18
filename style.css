@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
 :root {
-  --baseHige: 600px;
+  --baseHeight: 600px;
 }
 
 
@@ -17,7 +17,7 @@ body {
   top: 50%;
   left: 50%;
   width: 600px;
-  height: var(--baseHige);
+  height: var(--baseHeight);
   margin-top: -200px;
   margin-left: -200px;
   border-radius: 2px;

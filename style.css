@@ -96,10 +96,6 @@ body {
   font-size: 30px;
 }
 
-.container__tablet-show {
-  display: block;
-}
-
 .container__tablet__header {
   padding-left: 20px;
 }
@@ -108,6 +104,12 @@ body {
   margin: 0 30px;
   text-align: center;
   border: solid;
+}
+
+/* display tablet class */
+
+.container__tablet-show {
+  display: block;
 }
 
 /*modal css*/
@@ -155,7 +157,7 @@ body {
   animation-duration: 0.4s;
 }
 
-.modal__content__header {
+.modal__header {
   color: var(--white-color);
   position: relative;
   font-size: 30px;
@@ -167,7 +169,7 @@ body {
   order: 2;
 }
 
-.modal__content__header__button {
+.modal__button {
   position: relative;
   padding: 30px;
   border-radius: 5px;
@@ -179,15 +181,15 @@ body {
   display: flex;
 }
 
-.modal__content-displaynone {
+.modal-hide {
   display: none;
 }
 
-.modal__content-display {
+.modal-shown {
   display: block;
 }
 
-/* Add Animation */
+/*  Animation */
 
 @-webkit-keyframes animatetop {
   from {

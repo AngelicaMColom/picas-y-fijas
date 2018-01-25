@@ -5,11 +5,10 @@ const OBJGEN = {
   containerTitleActive: 'container__title__subtitle-active',
   addTable: document.querySelector('.container__tablet'),
   addBodyTable: document.querySelector('.container__tablet__body'),
-  baseHige: 600,
   minValueRandom: 1000,
   maxValueRandom: 9999,
-  activeDisplayModal: 'modal__content-display',
-  noActiveDisplayModal: 'modal__content-displaynone',
+  activeDisplayModal: 'modal-shown',
+  noActiveDisplayModal: 'modal-hide',
   activeTable: 'container__tablet-show',
   containerBodyTable: 'container__tablet__body',
   classBodyTable: 'container__tablet__body'
@@ -18,11 +17,10 @@ const submitDig = document.querySelector('button');
 const addError = document.querySelector('.container__title__subtitle');
 // get modal winner view
 const modal = document.querySelector('#myModal');
-const submitWinner = document.querySelector('.modal__content__header__button');
+const submitWinner = document.querySelector('.modal__button');
 // create counter numbers
 let inputVal = document.querySelector('[id=digitos]');
 let numberRandom = generateNumberRandomNumber();
-
 
 // initial
 
@@ -33,7 +31,7 @@ function submitActions(e) {
     value: inputVal.value,
     valueCount: inputVal.value.length
   }
-  validationNumbers(inputsObject);
+  validationInput(inputsObject);
   inputVal.value = '';
 }
 
@@ -41,11 +39,17 @@ function submitActions(e) {
  *  @param: {object} inputsObject
  **/
 
-function validationNumbers(inputsObject) {
-  let valueString = inputsObject.value.toString();
+function validationInput(inputsObject) {
+  const valueString = inputsObject.value.toString();
   compareValueOfString(valueString) || compareValueInput(inputsObject) ? addUserError() : remuveUserErrror();
   conditionalValidation(valueString, inputsObject);
 }
+
+/**
+ * add classes to the header text, alerts
+ **/
+let addUserError = () => { addError.classList.add(OBJGEN.containerTitleActive) };
+let remuveUserErrror = () => { addError.classList.remove(OBJGEN.containerTitleActive) };
 
 function conditionalValidation(valueString, inputsObject) {
   !compareValueOfString(valueString) && compareValueCount(inputsObject) ? OBJGEN.counter += 1 : OBJGEN.counter;
@@ -182,8 +186,6 @@ function closeModule() {
 }
 
 let returnArray = (str) => str.split('').map(Number);
-let addUserError = () => { addError.classList.add(OBJGEN.containerTitleActive) };
-let remuveUserErrror = () => { addError.classList.remove(OBJGEN.containerTitleActive) };
 let showwinner = () => { modal.classList.add(OBJGEN.activeDisplayModal) }
 
 submitDig.addEventListener('click', submitActions);

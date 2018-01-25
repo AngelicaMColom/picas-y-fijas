@@ -1,44 +1,43 @@
-// select element to be listen
+// select element to be listed or modified
 const OBJGEN = {
-  digitalCounter: 4,
-  counter: 0,
-  containerTitleActive: 'container__title__subtitle-active',
   addTable: document.querySelector('.container__tablet'),
   addBodyTable: document.querySelector('.container__tablet__body'),
+  activeDisplayModal: 'modal-shown',
+  activeTable: 'container__tablet-show',
+  addError: document.querySelector('.container__title__subtitle'),
+  classBodyTable: 'container__tablet__body',
+  containerBodyTable: 'container__tablet__body',
+  counter: 0,
+  containerTitleActive: 'container__title__subtitle-active',
+  digitalCounter: 4,
   minValueRandom: 1000,
   maxValueRandom: 9999,
-  activeDisplayModal: 'modal-shown',
+  // get modal winner view
+  modal: document.querySelector('#myModal'),
   noActiveDisplayModal: 'modal-hide',
-  activeTable: 'container__tablet-show',
-  containerBodyTable: 'container__tablet__body',
-  classBodyTable: 'container__tablet__body'
+  submitDig: document.querySelector('button'),
+  submitWinner: document.querySelector('.modal__button'),
+  // create counter numbers
+  inputVal: document.querySelector('[id=digitos]')
 }
-const submitDig = document.querySelector('button');
-const addError = document.querySelector('.container__title__subtitle');
-// get modal winner view
-const modal = document.querySelector('#myModal');
-const submitWinner = document.querySelector('.modal__button');
-// create counter numbers
-let inputVal = document.querySelector('[id=digitos]');
+
 let numberRandom = generateNumberRandomNumber();
 
 // initial
-
 function submitActions(e) {
   e.preventDefault();
   const inputsObject = {
     enter: this,
-    value: inputVal.value,
-    valueCount: inputVal.value.length
+    value: OBJGEN.inputVal.value,
+    valueCount: OBJGEN.inputVal.value.length
   }
   validationInput(inputsObject);
-  inputVal.value = '';
+  OBJGEN.inputVal.value = '';
 }
 
 /**
  *  @param: {object} inputsObject
  **/
-
 function validationInput(inputsObject) {
   const valueString = inputsObject.value.toString();
   compareValueOfString(valueString) || compareValueInput(inputsObject) ? addUserError() : remuveUserErrror();
@@ -46,15 +45,22 @@ function validationInput(inputsObject) {
 }
 
 /**
+ * compare value of the string given by the user
+ *  @param:{Object} inputsObject
+ *  @returns: {boolean}
+ **/
+function compareValueInput(inputsObject) {
+
+  return !inputsObject.value || inputsObject.value.includes(' ') ||
+    inputsObject.valueCount < OBJGEN.digitalCounter ||
+    inputsObject.valueCount > OBJGEN.digitalCounter;
+}
+
+/**
  * add classes to the header text, alerts
  **/
-let addUserError = () => { addError.classList.add(OBJGEN.containerTitleActive) };
-let remuveUserErrror = () => { addError.classList.remove(OBJGEN.containerTitleActive) };
-
-function conditionalValidation(valueString, inputsObject) {
-  !compareValueOfString(valueString) && compareValueCount(inputsObject) ? OBJGEN.counter += 1 : OBJGEN.counter;
-  inputsObject.valueCount && OBJGEN.counter !== 0 && compareValueCount(inputsObject) ? compareUserNumber(valueString) : OBJGEN.counter;
-}
+let addUserError = () => { OBJGEN.addError.classList.add(OBJGEN.containerTitleActive) };
+let remuveUserErrror = () => { OBJGEN.addError.classList.remove(OBJGEN.containerTitleActive) };
 
 /**
  * compare each value of the string
@@ -68,18 +74,11 @@ function compareValueOfString(str) {
     .some((val, i, arrayU) => val === arrayU[i + 1]);
 }
 
-/**
- * compare value of the string given by the user
- *  @param:{Object} inputsObject
- *  @returns: {boolean}
- **/
-
-function compareValueInput(inputsObject) {
-
-  return !inputsObject.value || inputsObject.value.includes(' ') ||
-    inputsObject.valueCount < OBJGEN.digitalCounter ||
-    inputsObject.valueCount > OBJGEN.digitalCounter;
+function conditionalValidation(valueString, inputsObject) {
+  !compareValueOfString(valueString) && compareValueCount(inputsObject) ? OBJGEN.counter += 1 : OBJGEN.counter;
+  inputsObject.valueCount && OBJGEN.counter !== 0 && compareValueCount(inputsObject) ? compareUserNumber(valueString) : OBJGEN.counter;
 }
+
 /**
  * compare value of the string given by the user
  *  @param: {Object} inputsObject
@@ -89,6 +88,7 @@ function compareValueCount(inputsObject) {
 
   return inputsObject.enter && inputsObject.valueCount === OBJGEN.digitalCounter;
 }
+
 
 /**
  * @param: {number} userNumber input value and count which is initiated
@@ -102,10 +102,13 @@ function compareUserNumber(userNumber) {
     showwinner();
   } else {
     loserUser(userNumber, numberRandom);
-    displayTableHead();
   }
 }
 
+/**
+ * create RandomNumber
+ *  @returns: {number} numberRandom;
+ **/
 function generateNumberRandomNumber() {
   let numberValue = getRandomInt(OBJGEN.minValueRandom, OBJGEN.maxValueRandom).toString();
   if(compareValueOfString(numberValue)) {
@@ -124,11 +127,16 @@ function getRandomInt(min, max) {
 
   return Math.floor(Math.random() * (max - min)) + min;
 };
+/**
+ * display modal
+ **/
+let showwinner = () => { OBJGEN.modal.classList.add(OBJGEN.activeDisplayModal) }
 
 /**
  * @param: {number} userNumber,numberRandom
  **/
 function loserUser(userNumber, numberRandom) {
+  displayTableHead();
   const score = {
     userNumber,
     fixed: 0,
@@ -150,16 +158,15 @@ function loserUser(userNumber, numberRandom) {
 function displayTableHead() {
   OBJGEN.addTable.classList.add(OBJGEN.activeTable);
 }
+/**
+ * convert string into arrays
+ **/
+let returnArray = (str) => str.split('').map(Number);
 
 /**
  * create bodytable
  * @param:{object} score
  **/
-
-function removeTable() {
-  const bodyToremove = document.getElementsByClassName('container__tablet__body')[0].getElementsByTagName('tr')[0];
-  bodyToremove.parentNode.removeChild(bodyToremove);
-}
 
 function createTableBody(score) {
   const trTable = document.createElement('tr');
@@ -173,20 +180,22 @@ function createTableBody(score) {
   OBJGEN.addBodyTable.appendChild(trTable);
 }
 
+
 /**
- * create RandomNumber
- *  @returns: {number} numberRandom;
+ * close module and call the remove Table class which will remove score table
  **/
-
-
 function closeModule() {
-  modal.classList.add(OBJGEN.noActiveDisplayModal);
-  modal.classList.remove(OBJGEN.activeDisplayModal);
+  OBJGEN.modal.classList.add(OBJGEN.noActiveDisplayModal);
+  OBJGEN.modal.classList.remove(OBJGEN.activeDisplayModal);
   removeTable();
 }
 
-let returnArray = (str) => str.split('').map(Number);
-let showwinner = () => { modal.classList.add(OBJGEN.activeDisplayModal) }
+function removeTable() {
+  const bodyToremove = document.getElementsByClassName('container__tablet__body')[0].getElementsByTagName('tr')[0];
+  bodyToremove.parentNode.removeChild(bodyToremove);
+}
 
-submitDig.addEventListener('click', submitActions);
-submitWinner.addEventListener('click', closeModule);
+
+
+OBJGEN.submitDig.addEventListener('click', submitActions);
+OBJGEN.submitWinner.addEventListener('click', closeModule);
